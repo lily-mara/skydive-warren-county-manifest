@@ -1,0 +1,53 @@
+{% extends 'base.html %}
+
+{% block page_title %}Skydive Warren County Manifest{% end %}
+
+{% block content %}
+    <h1>Skydive Warren County</h1>
+    <h2>Manifest</h2>
+
+    <script id="template" type="x-tmpl-mustache">
+        {{!# loads }}
+        <div class="load-box">
+            <div class="clearfix">
+                <h1 class="load-name">{{! name }}</h1>
+                <span class="load-call">
+                    {{! call_time }} minutes out
+                </span>
+                <span class="load-state">
+                    {{! state }}
+                </span>
+                <table class="load-slots">
+                {{!# slots }}
+                    <tr class="load-slot">
+                        <td class="load-slot-name">{{! name }}</span>
+                        <td></td>
+                        <td class="load-slot-activity">{{! activity }}</span>
+                    </tr class="load-slot">
+                {{!/ slots }}
+                </table>
+            </div>
+        </div>
+        {{!/ loads }}
+    </script>
+
+    <div id="target">
+    </div>
+
+    <script type="text/javascript">
+        function load_manifest() {
+            $.get('/api/departing', function(data) {
+                var template = $('#template').html();
+                Mustache.parse(template);
+                var rendered = Mustache.render(template, data);
+                $('#target').html(rendered);
+            });
+        }
+
+        $(document).ready(function() {
+            load_manifest();
+        });
+
+        setInterval(load_manifest, 1000*60*10);
+    </script>
+{% end %}

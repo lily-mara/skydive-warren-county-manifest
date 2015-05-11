@@ -1,0 +1,7 @@
+python-jumprunpro==0.0.2
+beautifulsoup4==4.3.2
+certifi==14.05.14
+python-metar==1.4.0
+requests==2.6.0
+tornado==4.1
+python-dateutil==2.4.2
